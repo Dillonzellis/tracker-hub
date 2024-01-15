@@ -1,11 +1,13 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 interface ItemProps {
   id: string;
   name: string;
+  imageUrl?: string;
 }
 
 export const Item = ({ id, name }: ItemProps) => {
@@ -24,12 +26,13 @@ export const Item = ({ id, name }: ItemProps) => {
 
   return (
     <div
-      className={cn("border-2 p-4 opacity-50 cursor-pointer", {
+      className={cn("opacity-50 cursor-pointer", {
         "opacity-100": isActive,
       })}
       onClick={toggleItem}
     >
       {name}
+      <Image src="/stick.jpg" alt={name} width={100} height={100} />
     </div>
   );
 };
