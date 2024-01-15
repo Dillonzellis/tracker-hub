@@ -1,8 +1,8 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface ItemProps {
   id: string;
@@ -10,12 +10,18 @@ interface ItemProps {
   imageUrl?: string;
 }
 
-export const Item = ({ id, name }: ItemProps) => {
-  const [isActive, setIsActive] = useState(() => {
-    const saved = localStorage.getItem("itemActive_" + id);
-    return saved !== null ? JSON.parse(saved) : false;
-  });
+export const Item = ({ id, name, imageUrl }: ItemProps) => {
+  const [isActive, setIsActive] = useState(false);
 
+  // Load the state from localStorage after the component has mounted
+  useEffect(() => {
+    const saved = localStorage.getItem("itemActive_" + id);
+    if (saved !== null) {
+      setIsActive(JSON.parse(saved));
+    }
+  }, [id]);
+
+  // Save the state to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem("itemActive_" + id, JSON.stringify(isActive));
   }, [isActive, id]);
@@ -26,13 +32,11 @@ export const Item = ({ id, name }: ItemProps) => {
 
   return (
     <div
-      className={cn("opacity-50 cursor-pointer", {
-        "opacity-100": isActive,
-      })}
+      className={cn("opacity-50 cursor-pointer", { "opacity-100": isActive })}
       onClick={toggleItem}
     >
       {name}
-      <Image src="/stick.jpg" alt={name} width={100} height={100} />
+      {imageUrl && <Image src={imageUrl} alt={name} width={100} height={100} />}
     </div>
   );
 };
