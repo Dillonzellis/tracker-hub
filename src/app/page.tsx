@@ -10,12 +10,7 @@ export default function Home() {
           <div className="text-3xl text-center">Tracker</div>
           <div className="flex gap-4 pt-12 justify-center">
             {items.map((item) => (
-              <Item
-                key={item.id}
-                id={item.id}
-                name={item.name}
-                imageUrl={item.imageUrl}
-              />
+              <Item key={item.id} item={item} />
             ))}
           </div>
         </div>

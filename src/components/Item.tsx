@@ -3,32 +3,36 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
+import type { ItemType } from "@/lib/items";
 
 interface ItemProps {
-  id: string;
-  name: string;
-  imageUrl?: string;
+  item: ItemType;
 }
 
-export const Item = ({ id, name, imageUrl }: ItemProps) => {
-  const [isActive, setIsActive] = useState(false);
+export const Item = ({ item: { id, name, images } }: ItemProps) => {
+  const [imageIndex, setImageIndex] = useState(() => {
+    const saved = localStorage.getItem("itemActive_" + id);
+    return saved !== null ? JSON.parse(saved) : 0;
+  });
 
-  // Load the state from localStorage after the component has mounted
   useEffect(() => {
     const saved = localStorage.getItem("itemActive_" + id);
     if (saved !== null) {
-      setIsActive(JSON.parse(saved));
+      console.log("saved", saved);
+      setImageIndex(JSON.parse(saved));
     }
   }, [id]);
 
-  // Save the state to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem("itemActive_" + id, JSON.stringify(isActive));
-  }, [isActive, id]);
+    localStorage.setItem("itemActive_" + id, JSON.stringify(imageIndex));
+  }, [imageIndex, id]);
 
   const toggleItem = () => {
-    setIsActive(!isActive);
+    const nextIndex = (imageIndex + 1) % images.length;
+    setImageIndex(nextIndex);
   };
+
+  const isActive = imageIndex > 0;
 
   return (
     <div
@@ -36,7 +40,15 @@ export const Item = ({ id, name, imageUrl }: ItemProps) => {
       onClick={toggleItem}
     >
       {name}
-      {imageUrl && <Image src={imageUrl} alt={name} width={100} height={100} />}
+      {images && (
+        <Image
+          src={images[imageIndex]}
+          alt={name}
+          className="rounded-md"
+          width={100}
+          height={100}
+        />
+      )}
     </div>
   );
 };

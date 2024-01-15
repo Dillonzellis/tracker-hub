@@ -1,8 +1,14 @@
 export const items = [
-  { id: "1", name: "Deku Stick", imageUrl: "/stick.jpg" },
-  { id: "2", name: "Fairy Ocarina", imageUrl: "/fairy-ocarina.jpg" },
-  { id: "3", name: "Item 3" },
-  { id: "4", name: "Item 4" },
-  { id: "5", name: "Item 5" },
-  { id: "6", name: "Item 6" },
-];
+  {
+    id: "1",
+    name: "Deku Stick",
+    images: ["/stick.jpg", "/stick.jpg", "/fairy-ocarina.jpg"],
+  },
+  {
+    id: "2",
+    name: "Fairy Ocarina",
+    images: ["/fairy-ocarina.jpg", "/fairy-ocarina.jpg"],
+  },
+] as const;
+
+export type ItemType = (typeof items)[number];
