@@ -1,31 +1,24 @@
 "use client";
 
+import { useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import type { ItemType } from "@/lib/items";
+import { useLocalStorage } from "@/hooks/useLocalStorage";
 
 interface ItemProps {
   item: ItemType;
 }
 
 export const Item = ({ item: { id, name, images } }: ItemProps) => {
-  const [imageIndex, setImageIndex] = useState(() => {
-    const saved = localStorage.getItem("itemActive_" + id);
-    return saved !== null ? JSON.parse(saved) : 0;
-  });
+  const [isMounted, setIsMounted] = useState<boolean>(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem("itemActive_" + id);
-    if (saved !== null) {
-      console.log("saved", saved);
-      setImageIndex(JSON.parse(saved));
-    }
-  }, [id]);
+    setIsMounted(true);
+  }, []);
 
-  useEffect(() => {
-    localStorage.setItem("itemActive_" + id, JSON.stringify(imageIndex));
-  }, [imageIndex, id]);
+  const [imageIndex, setImageIndex] = useLocalStorage(`imageIndex-${id}`, 0);
 
   const toggleItem = () => {
     const nextIndex = (imageIndex + 1) % images.length;
@@ -34,7 +27,7 @@ export const Item = ({ item: { id, name, images } }: ItemProps) => {
 
   const isActive = imageIndex > 0;
 
-  return (
+  return isMounted ? (
     <div
       className={cn("opacity-50 cursor-pointer", { "opacity-100": isActive })}
       onClick={toggleItem}
@@ -50,5 +43,7 @@ export const Item = ({ item: { id, name, images } }: ItemProps) => {
         />
       )}
     </div>
+  ) : (
+    <p>loading...</p>
   );
 };
