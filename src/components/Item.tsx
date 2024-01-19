@@ -6,6 +6,7 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { ItemType } from "@/lib/items";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Skeleton } from "./ui/skeleton";
 
 interface ItemProps {
   item: ItemType;
@@ -44,6 +45,11 @@ export const Item = ({ item: { id, name, images } }: ItemProps) => {
       )}
     </div>
   ) : (
-    <p>loading...</p>
+    <>
+      <div className="space-y-2 opacity-50">
+        <Skeleton className="h-4 w-[75px]" />
+        <Skeleton className="w-24 h-24 rounded-md" />
+      </div>
+    </>
   );
 };
