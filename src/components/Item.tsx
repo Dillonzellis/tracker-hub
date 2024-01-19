@@ -33,7 +33,6 @@ export const Item = ({ item: { id, name, images } }: ItemProps) => {
       className={cn("opacity-50 cursor-pointer", { "opacity-100": isActive })}
       onClick={toggleItem}
     >
-      {name}
       {images && (
         <Image
           src={images[imageIndex]}
@@ -47,7 +46,6 @@ export const Item = ({ item: { id, name, images } }: ItemProps) => {
   ) : (
     <>
       <div className="space-y-2 opacity-50">
-        <Skeleton className="h-4 w-[75px]" />
         <Skeleton className="w-24 h-24 rounded-md" />
       </div>
     </>
