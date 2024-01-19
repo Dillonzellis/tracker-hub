@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import type { ItemType } from "@/lib/items";
+import type { ItemType } from "@/data/items";
 import { useLocalStorage } from "@/hooks/useLocalStorage";
 import { Skeleton } from "./ui/skeleton";
 

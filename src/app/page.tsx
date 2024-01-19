@@ -1,6 +1,6 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Item } from "@/components/Item";
-import { items } from "@/lib/items";
+import { items } from "@/data/items";
 
 export default function Home() {
   return (
