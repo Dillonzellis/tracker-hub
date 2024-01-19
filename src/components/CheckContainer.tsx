@@ -66,8 +66,8 @@ const Check = ({ checkArea, checks }: CheckListType) => {
     <div>
       <div className="text-xl">{checkArea}</div>
       <ul>
-        {checks.map((check) => (
-          <SingleCheck>{check}</SingleCheck>
+        {checks.map((check, index) => (
+          <SingleCheck key={index}>{check}</SingleCheck>
         ))}
       </ul>
     </div>
