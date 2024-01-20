@@ -1,6 +1,7 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Item } from "@/components/Item";
 import { items } from "@/data/items";
+import { Navbar } from "@/components/Navbar";
 
 export default function Home() {
   return (
