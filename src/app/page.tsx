@@ -1,15 +1,14 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { Item } from "@/components/Item";
 import { items } from "@/data/items";
-import { Navbar } from "@/components/Navbar";
 
 export default function Home() {
   return (
-    <main className="bg-black text-white min-h-screen">
+    <main className="min-h-screen bg-black text-white">
       <MaxWidthWrapper>
         <div className="pt-20">
-          <div className="text-3xl text-center">Tracker</div>
-          <div className="flex gap-4 pt-12 justify-center">
+          <div className="text-center text-3xl">Tracker</div>
+          <div className="flex justify-center gap-4 pt-12">
             {items.map((item) => (
               <Item key={item.id} item={item} />
             ))}
